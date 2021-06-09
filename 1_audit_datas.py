@@ -3,6 +3,7 @@
 """
 Created on Sat May 15 15:15:55 2021
 
+doc: 
 preparation of data sets:
     generate charts about amount of data
     --- todo: ---
@@ -16,10 +17,12 @@ import os
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-#rootFolder = '/Users/david/DEVS_LOCAL/dev-ia-son-data/'
-rootFolder = '../data/'
+rootFolder = '/Users/david/DEVS_LOCAL/dev-ia-son/partage-ia-son/data/'
+# rootFolder = 'data/'
 
-list_datasets = ['fan', 'pump', 'slider', 'ToyCar', 'ToyConveyor', 'valve']  # folders in rootFolder
+# list_datasets = ['fan', 'pump', 'ToyCar', 'slider', 'ToyConveyor', 'valve']  # folders in rootFolder
+list_datasets = ['fan', 'pump', 'ToyCar'] # folders david
+
 
 # list_datasets_train = ['fan', 'ToyCar', 'pump']  # folders in rootFolder
 # list_datasets_train = ['fan'] # test
@@ -31,7 +34,9 @@ def countInFolder():
     list_stats= []
 
     for folder in list_datasets:
-        train_folder = './' + folder + '/train/'
+        # train_folder = './' + folder + '/train/'
+        train_folder = rootFolder + folder + '/train/'
+        
         print('f=', train_folder)
 
         wavFilesTrain = [f for f in os.listdir(train_folder) if isfile(join(train_folder, f))]
@@ -87,9 +92,9 @@ def data_allFiles():
 
     return ({'folder': list_folder1, 'file': list_files1, 'size': list_size1, 'type': list_type1})
 
-# countInFolder()
+countInFolder()
 
-df = pd.DataFrame(data = data_allFiles()) # init df: list of files in folders
+df = pd.DataFrame(data = data_allFiles()) # init df: list of all files in all folders
 #ns.countplot(y="folder", data=df); # number of files in each folder
 sns.countplot(data=df, y="folder", hue="type");
 
