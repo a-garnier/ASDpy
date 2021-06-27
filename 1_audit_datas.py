@@ -3,6 +3,13 @@
 """
 Created on Sat May 15 15:15:55 2021
 
+analysis: 
+https://docs.google.com/document/d/17faADHMrEtezoWTZ87MY70B3Moz5uJUEiMRU8nlJFi4/edit#
+
+dataset:
+https://www.kaggle.com/daisukelab/dc2020task2
+    
+    
 doc: 
 preparation of data sets:
     generate charts about amount of data
@@ -17,16 +24,9 @@ import os
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-rootFolder = '/Users/david/DEVS_LOCAL/dev-ia-son/partage-ia-son/data/'
-# rootFolder = 'data/'
+from utils import list_datasets
+from utils import rootFolder
 
-# list_datasets = ['fan', 'pump', 'ToyCar', 'slider', 'ToyConveyor', 'valve']  # folders in rootFolder
-list_datasets = ['fan', 'pump', 'ToyCar'] # folders david
-
-
-# list_datasets_train = ['fan', 'ToyCar', 'pump']  # folders in rootFolder
-# list_datasets_train = ['fan'] # test
-# list_datasets_validation = ['slider', 'valve'] # folders in rootFolder
 
 def countInFolder():
     # count all files in folders
@@ -35,7 +35,7 @@ def countInFolder():
 
     for folder in list_datasets:
         # train_folder = './' + folder + '/train/'
-        train_folder = rootFolder + folder + '/train/'
+        train_folder = rootFolder + 'data/' + folder + '/train/'
         
         print('f=', train_folder)
 
@@ -59,7 +59,7 @@ def data_allFilesByType(typeFolder):
     # get a df with all files and categories
     for folder in list_datasets:
         rel_folder =  folder + '/' + typeFolder
-        full_folder = rootFolder + '/' + rel_folder + '/'
+        full_folder = rootFolder  + 'data/' + '/' + rel_folder + '/'
         print('full_folder=', full_folder)
         wavFilesTrain = [f for f in os.listdir(full_folder) if isfile(join(full_folder, f))]
         if '.DS_Store' in wavFilesTrain: wavFilesTrain.remove('.DS_Store')
