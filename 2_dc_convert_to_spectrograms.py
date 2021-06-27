@@ -1,62 +1,79 @@
 # -*- coding: utf-8 -*-
 
 """
-    Convert wav to spectrograms
+    Convert wav to spectrograms into folders
+    # construct dataset of images spectrogram in folders:
+        # png_train/normal
+        # png_train/anormal
+        # png_validation/normal
+        # png_validation/anormal
+        # png_test is used for some tests at the end
+
 """
-
-# construct dataset of images spectrogram if folders:
-# train_png/normal
-# train_png/anormal
-# test_png/normal
-# test_png/anormal
-
-# from array import array
 
 from os import listdir
 from os.path import isfile, join
 import random
+import numpy as np
+import sys
 
 
+countImages =  0    # count all images
+nbImagesTotest = 10 # put these images in png_test (for each train + validation)
 
 from SoundFile import SoundFile
 from utils import list_datasets, folders_train_test, rootFolder
+import datetime
 
 
+now = datetime.datetime.now()
+print("*************** Start... ******************", now.strftime("%Y-%m-%d %H:%M:%S"))
 
-# todo : test : normal + anormal prefix
-
-# root_folder = './data/fan/'
-# train_folder = root_folder + 'train/'
-
-# limit = 100 # number of file to treat
-# indiceFile = 0
 
 for folder in list_datasets:
-    for ftt in folders_train_test: #test, train
+    for ftt in folders_train_test: # train, validation <-- each machine must have these 2 folders which contains the wav files
+        # todo: rename 'test' folder to 'validation'
+        # todo: empty the 3 png_* folders before start
         use_folder = rootFolder + 'data/' + folder + '/' + ftt + '/'
         wavfiles = [f for f in listdir(use_folder) if isfile(join(use_folder, f))]
         if '.DS_Store' in wavfiles:
             wavfiles.remove('.DS_Store')
+            
+        nbImages = len(wavfiles)
+        
+        # random choose of images for testing at the end: put them in png_test folder
+        arrIndicesImagesToTest = np.random.randint(1, nbImages, nbImagesTotest)
+        print('nbImages: ', nbImages, ' in ', use_folder)
+        # print('test:', arrIndicesImagesToTest)
+        # sys.exit()
         
         for f in wavfiles:
             arrName = f.split("_") # anomaly_id_00_00000001.wav
             out_folder_png = ''
-            classPrefix = arrName[0] #normal or anomaly
+            classPrefix = arrName[0] # 'normal' or 'anomaly'
             
-            out_folder_png = rootFolder + 'data/' + folder + '/' + ftt + '_png/' + classPrefix + '/' # data//slider/train_png/normal/
+            out_folder_png = rootFolder + 'data/' + folder + '/png_' + ftt + '/' + classPrefix + '/' # data//slider/train_png/normal/
             # use some anomaly for the training set:
             if classPrefix == 'anomaly':
                 randf = random.choice(folders_train_test) # random test or train
-                out_folder_png = rootFolder + 'data/' + folder + '/' + randf + '_png/' + classPrefix + '/'
-            print('out_folder_png:', out_folder_png)
-    
+                out_folder_png = rootFolder + 'data/' + folder + '/png_' + randf + '/' + classPrefix + '/'
+            if countImages in arrIndicesImagesToTest:
+                out_folder_png = rootFolder + 'data/' + folder + '/png_test/'
+            # print('out_folder_png:', out_folder_png)
+            if countImages % 400 == 0:
+                print('countImages generated...: ', countImages)
             # break
             s = SoundFile(use_folder + f, out_folder_png)
             s.exportMelSpectrogram()
-            indiceFile = indiceFile + 1
-            # if indiceFile > limit:
-            #     break
-    
+            countImages = countImages + 1
+
+
+now = datetime.datetime.now()
+print("*************** End ******************", now.strftime("%Y-%m-%d %H:%M:%S"))
+
+
+# print('nbImages generated: ', nbImages)
+
 # test 1 file ok:
 # s1 = SoundFile('./fan/train_mini/normal_id_00_00000001.wav', out_folder_png)
 # s1.exportMelSpectrogram()
