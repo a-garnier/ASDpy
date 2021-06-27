@@ -6,21 +6,49 @@
 # import numpy as np
 # from array import array
 
+import os
 from os import listdir
 from os.path import isfile, join
+import matplotlib.pyplot as plt
 
 from SoundFile import SoundFile
 
 
-train_folder = './fan/train_mini/'
-out_folder_png = './fan/train_mini_png/'
 
 
-wavfiles = [f for f in listdir(train_folder) if isfile(join(train_folder, f))]
-wavfiles.remove('.DS_Store')
-for f in wavfiles:
-    s = SoundFile(train_folder + f, out_folder_png)
-    s.exportMelSpectrogram()
+def convertSound2ImageDir(soundFolder, imageFolder):
+
+    if not os.path.exists(imageFolder):
+        os.makedirs(imageFolder)
+
+    wavfiles = [f for f in listdir(soundFolder) if isfile(join(soundFolder, f))]
+    # wavfiles.remove('.DS_Store')
+    for f in wavfiles:
+        if f[-4:] != '.wav':
+            # ignore non .wav files
+            continue
+
+        s = SoundFile(soundFolder + f, imageFolder)
+        s.exportMelSpectrogram()
+        # s.showMelSpectrogram()
+        # plt.show()
+
+
+machines = ['fan', 'pump', 'slider', 'ToyCar', 'ToyConveyor', 'valve']
+sets = ['train', 'test']
+
+for machine in machines:
+    for s in sets:
+        # example : '../data/fan/train/'
+        soundFolder = '../data/'+machine+'/'+s+'/'
+
+        # example : '../data/fan/train_png/'
+        imageFolder = '../data/'+machine+'/'+s+'_png/'
+
+        print("Convert directory ", soundFolder)
+
+        convertSound2ImageDir(soundFolder, imageFolder)
+
     
 # test 1 file ok:
 # s1 = SoundFile('./fan/train_mini/normal_id_00_00000001.wav', out_folder_png)
@@ -54,7 +82,4 @@ for f in wavfiles:
 # mel_sgram = librosa.amplitude_to_db(mel_scale_sgram, ref=np.min)
 # librosa.display.specshow(mel_sgram, sr=sample_rate, x_axis='time', y_axis='mel')
 # plt.colorbar(format='%+2.0f dB')
-
-
-
 

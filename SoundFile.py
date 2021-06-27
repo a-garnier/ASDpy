@@ -40,11 +40,19 @@ class SoundFile:
 
     
     def __init__(self, nameFile, out_folder_png):
-        print('init the audio file:', nameFile)
+        #print('init the audio file:', nameFile)
         self.nameFile = nameFile
         self.out_folder_png = out_folder_png
         self.samples, self.sample_rate = librosa.load(nameFile, sr=None)
+        # self.samples : (160000,) complex matrix
+        # self.sample_rate : 16000
         self.sgram = librosa.stft(self.samples)
+        # self.sgram.shape : (1025, 313) matrix
+        # (f,t) => f = frequency, t = time
+        #print(self.sgram)
+        # n_fft=2000 => (1001, 321)
+        # n_fft=500 => (251, 1281)
+        # n_fft=32 => (17, 200001)
         
     def exportMelSpectrogram(self): # black and white with skimage
         # mels = librosa.feature.melspectrogram(y=y, sr=sr, n_mels=n_mels,
