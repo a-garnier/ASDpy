@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 
 """
-    Test a CNN on the pngs files
+    Fit a CNN on the pngs files
     for one machine e.g. 'valve' (list_datasets[0])
 """
 
 from utils import list_datasets, folders_train_test, rootFolder
 import joblib
-
-
 import sys
 import datetime
 
@@ -74,59 +72,29 @@ classifier.fit_generator(training_set,
                          validation_steps = 2000)
 
 # save the cnn to disk  -----------------------
-filename_model = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + '_' + machine + '_cnn'
+filename_model = rootFolder + 'dc_models/' + datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + '_' + machine + '_cnn.h5'
 # filename_model = 'cnn.sav'
-joblib.dump(classifier, filename_model + ".sav")  
-# serialize model to JSON
-model_json = classifier.to_json()
-with open(filename_model + ".json", "w") as json_file:
-    json_file.write(model_json)
-# serialize weights to HDF5
-classifier.save_weights(filename_model + ".h5")
-print("Saved model to disk")
+classifier.save(filename_model)
+# joblib.dump(classifier, filename_model + ".sav")  
+
+
+# # serialize model to JSON
+# model_json = classifier.to_json()
+# with open(filename_model + ".json", "w") as json_file:
+#     json_file.write(model_json)
+# # serialize weights to HDF5
+# classifier.save_weights(filename_model + ".h5")
+# print("model saved to disk")
  
-# later...
- 
-# load the model from disk
-# loaded_model = pickle.load(open(filename_model, 'rb'))
-# result = loaded_model.score(X_test, Y_test)
-# print(result)
-
-# load json and create model
-# json_file = open('model.json', 'r')
-# loaded_model_json = json_file.read()
-# json_file.close()
-# loaded_model = model_from_json(loaded_model_json)
-# # load weights into new model
-# loaded_model.load_weights("model.h5")
-# print("Loaded model from disk")
- 
-# # evaluate loaded model on test data
-# loaded_model.compile(loss='binary_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
-# score = loaded_model.evaluate(X, Y, verbose=0)
-# print("%s: %.2f%%" % (loaded_model.metrics_names[1], score[1]*100))
-
-
-
 
 
  
-# Part 3 - Making new predictions
+
+
 
 sys.exit()
 
-import numpy as np
-from keras.preprocessing import image
-test_image = image.load_img('data/' + machine + '/test_which_class_png', target_size = (64, 64))
-test_image = image.img_to_array(test_image)
-test_image = np.expand_dims(test_image, axis = 0)
-result = classifier.predict(test_image)
-training_set.class_indices
-if result[0][0] == 1:
-    prediction = 'dog'
-else:
-    prediction = 'cat'
-
+ 
 
 
 
