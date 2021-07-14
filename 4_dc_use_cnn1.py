@@ -6,7 +6,6 @@
 """
 
 from utils import list_datasets, folders_train_test, rootFolder
-# import joblib
 import sys
 import datetime
 import numpy as np
@@ -17,7 +16,7 @@ from keras.models import load_model
 
 # config
 machine = 'valve'
-modelName = '2021-07-14-15-01-06_valve_cnn.h5'
+modelName = '2021-07-14-16-41-26_valve_cnn.h5'
 
 # ---
 png_folder = rootFolder + 'data/' + machine + '/png_test/'
@@ -29,16 +28,18 @@ print('nameFilePngTotest: ', nameFilePngTotest)
 # load the model from disk
 pathModel = rootFolder + 'dc_models/' + modelName
 model = load_model(pathModel)
+
 # loaded_model = joblib.load(rootFolder + 'dc_models/' + modelName)
-test_image = image.load_img(png_folder + nameFilePngTotest) # , target_size = (64, 64)
+test_image = image.load_img(png_folder + nameFilePngTotest, target_size = (64, 64)) # , target_size = (64, 64)
 test_image = image.img_to_array(test_image)
 test_image = np.expand_dims(test_image, axis = 0)
-result = model.predict(test_image)
+
+result = model.predict(test_image) # bug ici    ValueError: Input 0 of layer dense_16 is incompatible with the layer: expected axis -1 of input shape to have value 6272 but received input with shape (None, 72960)
 # training_set.class_indices
 # if result[0][0] == 1:
-#     prediction = 'dog'
+#     prediction = '1'
 # else:
-#     prediction = 'cat'
+#     prediction = '2'
 # loaded_model = pickle.load(open(filename_model, 'rb'))
 # result = loaded_model.score(X_test, Y_test)
 # print(result)

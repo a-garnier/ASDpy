@@ -27,7 +27,7 @@ classifier = Sequential()
 
 # Step 1 - Convolution
 classifier.add(Conv2D(32, (3, 3), input_shape = (64, 64, 3), activation = 'relu'))
-
+# classifier.add(Conv2D(32, (3, 3), input_shape = (313, 128, 3), activation = 'relu'))
 # Step 2 - Pooling
 classifier.add(MaxPooling2D(pool_size = (2, 2)))
 
@@ -75,6 +75,7 @@ classifier.fit_generator(training_set,
 filename_model = rootFolder + 'dc_models/' + datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + '_' + machine + '_cnn.h5'
 # filename_model = 'cnn.sav'
 classifier.save(filename_model)
+print('model saved : ', filename_model)
 # joblib.dump(classifier, filename_model + ".sav")  
 
 
