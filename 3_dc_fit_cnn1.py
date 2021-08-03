@@ -26,8 +26,8 @@ from keras.layers import Dense
 classifier = Sequential()
 
 # Step 1 - Convolution
-classifier.add(Conv2D(32, (3, 3), input_shape = (64, 64, 3), activation = 'relu'))
-# classifier.add(Conv2D(32, (3, 3), input_shape = (313, 128, 3), activation = 'relu'))
+classifier.add(Conv2D(32, (3, 3), input_shape = (64, 64, 1), activation = 'relu'))
+# classifier.add(Conv2D(32, (3, 3), input_shape = (313, 128, 1), activation = 'relu'))
 # Step 2 - Pooling
 classifier.add(MaxPooling2D(pool_size = (2, 2)))
 
