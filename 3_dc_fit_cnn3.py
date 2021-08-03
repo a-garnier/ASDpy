@@ -22,6 +22,7 @@ from tensorflow.keras import layers
 
 image_size = (313, 128)
 batch_size = 32
+folder_pngs = 'data/' + machine + '/png_v3'
 
 data_augmentation = keras.Sequential(
     [
@@ -30,7 +31,7 @@ data_augmentation = keras.Sequential(
     ]
 )
 
-# Initialising the CNN v2: make model
+# Initialising the CNN v3: make model
 def make_model(input_shape, num_classes):
     inputs = keras.Input(shape=input_shape)
     # Image augmentation block
@@ -84,7 +85,7 @@ def make_model(input_shape, num_classes):
 
 
 model = make_model(input_shape=image_size + (3,), num_classes=2)
-epochs = 10 # 50
+epochs = 15 # 50
 
 # callbacks = [
 #     keras.callbacks.ModelCheckpoint("save_at_{epoch}.h5"),
@@ -96,9 +97,8 @@ model.compile(
 )
 
 # Part 2 - Fitting the CNN to the images
-
 train_ds = tf.keras.preprocessing.image_dataset_from_directory(
-    'data/' + machine + '/v2',
+    folder_pngs,
     validation_split=0.2,
     subset="training",
     seed=1337,
@@ -106,7 +106,7 @@ train_ds = tf.keras.preprocessing.image_dataset_from_directory(
     batch_size=batch_size,
 )
 val_ds = tf.keras.preprocessing.image_dataset_from_directory(
-    'data/' + machine + '/v2',
+    folder_pngs,
     validation_split=0.2,
     subset="validation",
     seed=1337,
@@ -127,7 +127,7 @@ for images, labels in train_ds.take(1):
         plt.axis("off")
 
 
-sys.exit()
+# sys.exit()
 
 
 

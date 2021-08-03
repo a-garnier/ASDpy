@@ -19,17 +19,18 @@ from keras.models import load_model
 # config
 machine = 'valve'
 modelName = '2021-08-02-21-42-25_valve_cnn.h5'
-indiceFile = 3
+
 # ---
+png_folder = rootFolder + 'data/' + machine + '/png_test/'
 # load the model from disk
 pathModel = rootFolder + 'dc_classifiers/' + modelName
 model = load_model(pathModel)
 
 
 # browse test files
-df_result = pd.DataFrame(columns=['file', 'score'])
+df_result = pd.DataFrame(columns=['file', 'score']) # df result  with files and scores
 
-png_folder = rootFolder + 'data/' + machine + '/png_test/'
+indiceFile = 0
 wavfiles = [f for f in listdir(png_folder) if isfile(join(png_folder, f))]
 for nameFilePngTotest in wavfiles:
     if nameFilePngTotest[-4:] != '.png': # ignore non .png files

@@ -40,11 +40,9 @@ class SoundFile:
 
     
     def __init__(self, nameFile, out_folder_png):
-<<<<<<< HEAD
+
         # print('init the audio file:', nameFile)
-=======
-        #print('init the audio file:', nameFile)
->>>>>>> b21b0324e5276bb0deab98cf54d4c297238a6a23
+
         self.nameFile = nameFile
         self.out_folder_png = out_folder_png
         self.samples, self.sample_rate = librosa.load(nameFile, sr=None)
