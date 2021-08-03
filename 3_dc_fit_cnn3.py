@@ -141,7 +141,7 @@ filename_classifier = rootFolder + 'dc_classifiers/' + datetime.datetime.now().s
 model.save(filename_classifier)
 
 
-
+print('model saved:', filename_classifier)
  
 
 
