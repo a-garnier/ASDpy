@@ -47,7 +47,10 @@ for nameFilePngTotest in wavfiles:
 df_result = df_result.sort_values(by = ['score'], ascending = False)
 df_result.head(40)
 
-# doesn't work!
+
+
+
+# it doesn't work!
 #                           file           score
 # 38   normal_id_00_00000028.png    [0.99925923]
 # 16   normal_id_00_00000026.png    [0.98695207]
