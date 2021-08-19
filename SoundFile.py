@@ -15,8 +15,6 @@ import skimage.io
 import os
 from pathlib import Path
 
-
-
 def scale_minmax(X, min=0.0, max=1.0):
     X_std = (X - X.min()) / (X.max() - X.min())
     X_scaled = X_std * (max - min) + min
@@ -38,11 +36,8 @@ class SoundFile:
     # n_mels = 128 # number of bins in spectrogram. Height of image
     # time_steps = 384 # number of time-steps. Width of image
 
-    
     def __init__(self, nameFile, out_folder_png):
-
         # print('init the audio file:', nameFile)
-
         self.nameFile = nameFile
         self.out_folder_png = out_folder_png
         self.samples, self.sample_rate = librosa.load(nameFile, sr=None)
@@ -55,36 +50,41 @@ class SoundFile:
         # n_fft=2000 => (1001, 321)
         # n_fft=500 => (251, 1281)
         # n_fft=32 => (17, 200001)
-        
-    def exportMelSpectrogram(self): # black and white with skimage
-        # mels = librosa.feature.melspectrogram(y=y, sr=sr, n_mels=n_mels,
-        #                                     n_fft=hop_length*2, hop_length=hop_length)
-        
+    
+    # ok: black and white with skimage
+    def exportMelSpectrogram(self): 
+        # mels = librosa.feature.melspectrogram(y=y, sr=sr, n_mels=n_mels, n_fft=hop_length*2, hop_length=hop_length)
         sgram_mag, _ = librosa.magphase(self.sgram)
         mels = librosa.feature.melspectrogram(S=sgram_mag, sr=self.sample_rate)
-        # mel_sgram = librosa.amplitude_to_db(mel_scale_sgram, ref=np.min)
-
         mels = np.log(mels + 1e-9) # add small number to avoid log(0)
-    
         # min-max scale to fit inside 8-bit range
         img = scale_minmax(mels, 0, 255).astype(np.uint8)
         img = np.flip(img, axis=0) # put low frequencies at the bottom in image
         img = 255-img # invert. make black==more energy
-    
-        # save as PNG in out_folder_png
         p = Path(self.nameFile)
-        # namePng = os.path.splitext(self.nameFile)[0] + '.png'
         namePng = self.out_folder_png + p.stem + '.png' #same name for the png file as wav
         skimage.io.imsave(namePng, img)
 
         
-        
-
+    #  ok : export a color spectrogram as png 
+    def exportMelSpectrogramColor(self):
+         # use the decibel scale to get the final Mel Spectrogram - v2
+        sgram_mag, _ = librosa.magphase(self.sgram)
+        mels = librosa.feature.melspectrogram(S=sgram_mag, sr=self.sample_rate)
+        mel_sgram = librosa.amplitude_to_db(mels, ref=np.min)
+        fig = plt.Figure()
+        ax = fig.add_subplot(111)
+        librosa.display.specshow(mel_sgram, sr=self.sample_rate,  ax=ax, x_axis=None, y_axis=None)
+        p = Path(self.nameFile)
+        namePng = self.out_folder_png + p.stem + '.png' # same name for the png file as wav
+        fig.savefig(namePng)
+    
+    #  ok : display a color spectrogram
     def showMelSpectrogram(self):
          # use the decibel scale to get the final Mel Spectrogram - v2
         sgram_mag, _ = librosa.magphase(self.sgram)
-        mel_scale_sgram = librosa.feature.melspectrogram(S=sgram_mag, sr=self.sample_rate)
-        mel_sgram = librosa.amplitude_to_db(mel_scale_sgram, ref=np.min)
+        mels = librosa.feature.melspectrogram(S=sgram_mag, sr=self.sample_rate)
+        mel_sgram = librosa.amplitude_to_db(mels, ref=np.min)
         librosa.display.specshow(mel_sgram, sr=self.sample_rate, x_axis='time', y_axis='mel')
-        # plt.colorbar(format='%+2.0f dB'); # vertical legend
+        plt.colorbar(format='%+2.0f dB'); # vertical legend
 
