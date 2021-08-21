@@ -1,29 +1,29 @@
 # -*- coding: utf-8 -*-
 
 """
-    Convert wav to black and white spectrograms into folders
+    Convert wavs from [machine]/wavs to color spectrograms into folders
     # construct dataset of images spectrogram in folders:
-        # v3/normal
-        # v3/anormal
-        # png_test is used for some tests at the end (normal & anormally images)
+        # [machine]/png_v4/normal
+        # [machine]/png_v4/anormal
+        # [machine]/png_test_v4 is used for imaegs tests never seen by the model (normal & anormal images)
 
 """
 
 from os import listdir
 from os.path import isfile, join
-import random
+# import random
 import numpy as np
 import sys
 
-
-countImages =  0    # count all images
-nbImagesTotestEachClass = 20 # put this count of images in png_test
-dictStat = {'normal': 0, 'anomaly': 0} # count of files in 2 classes
+countImages =  0    # counter for all images
+countImagesNormal =  0   
+countImagesAnomaly =  0  
+nbImagesTotestEachClass = 20 # put this count of images in png_test (for each class)
+dictStat = {'normal': 0, 'anomaly': 0} # stats count of files in 2 classes
  
 from SoundFile import SoundFile
-from utils import list_datasets, folders_train_test, rootFolder
+from utils import list_datasets, rootFolder
 import datetime
-
 
 now = datetime.datetime.now()
 print("*************** Start... ******************", now.strftime("%Y-%m-%d %H:%M:%S"))
@@ -39,47 +39,46 @@ for folder_machine in list_datasets: # ['valve']
         
     nbWavs = len(wavfiles)
     
-    # random choose of images for testing at the end: put them in png_test folder_machine
+    # count files in each class
     for f in wavfiles:
         arrName = f.split("_") # anomaly_id_00_00000001.wav
         classPrefix = arrName[0] # 'normal' or 'anomaly'
         dictStat['normal'] =  dictStat['normal'] + 1 if classPrefix == 'normal' else dictStat['normal']
         dictStat['anomaly'] =  dictStat['anomaly'] + 1 if classPrefix == 'anomaly' else dictStat['anomaly']
 
+    # print('dictStat: ', dictStat) # 479 anomaly 3291 normal
 
-    # sys.exit()    
-    # 479 anomaly 3291 normal
+    # random choose of images for testing at the end: put them in png_test folder_machine
     arrIndicesImagesToTestNormal = np.random.randint(1, dictStat['normal'], nbImagesTotestEachClass) 
     arrIndicesImagesToTestAnormal = np.random.randint(1, dictStat['anomaly'], nbImagesTotestEachClass) 
     
     print('nbWavs: ', nbWavs, ' in ', use_folder)
-    # print('test:', arrIndicesImagesToTestNormal)
-    # print('test:', arrIndicesImagesToTestAnormal)
-    # sys.exit()
+    print('test normal:', arrIndicesImagesToTestNormal)
+    print('test anormal:', arrIndicesImagesToTestAnormal)
 
     for f in wavfiles:
         arrName = f.split("_") # anomaly_id_00_00000001.wav
         out_folder_png = ''
         classPrefix = arrName[0] # 'normal' or 'anomaly'
+        countImages += 1
+        if classPrefix == 'normal':
+            countImagesNormal += 1
+        if classPrefix == 'anomaly':
+            countImagesAnomaly += 1
+
+        out_folder_png = rootFolder + 'data/' + folder_machine + '/png_v4/' + classPrefix + '/' # data/slider/png_v4/normal/
+        out_folder_png_test = rootFolder + 'data/' + folder_machine + '/png_test_v4/'
         
-        # out_folder_png = rootFolder + 'data/' + folder_machine + '/png_v3_mini/' + classPrefix + '/' # data/slider/png_v3/normal/
-        out_folder_png = rootFolder + 'data/' + folder_machine + '/png_v3/' + classPrefix + '/' # data/slider/png_v3/normal/
-        out_folder_png_test = rootFolder + 'data/' + folder_machine + '/png_test/'
         # use some anomaly for the training set:
-        if classPrefix == 'normal' and countImages in arrIndicesImagesToTestNormal or classPrefix == 'anomaly' and countImages in arrIndicesImagesToTestAnormal:
+        if classPrefix == 'normal' and countImagesNormal in arrIndicesImagesToTestNormal or classPrefix == 'anomaly' and countImagesAnomaly in arrIndicesImagesToTestAnormal:
             out_folder_png = out_folder_png_test
-            # print('!!!to_test:', out_folder_png)
-            # sys.exit()
-        # print('out_folder_png:', out_folder_png)
-        if countImages % 200 == 0:
+            # print('!!! image test: ', classPrefix)
+            
+        if countImages % 100 == 0:
             print('countImages generated...: ', countImages, ' / ', nbWavs)
-        # break
+        
         s = SoundFile(use_folder + f, out_folder_png)
-        s.exportMelSpectrogram() # create black & white file
-        # s.showMelSpectrogram()
-        countImages = countImages + 1
-    # put randomly in png_test folder
-    
+        s.exportMelSpectrogramColor() # create color file    
 
 now = datetime.datetime.now()
 print("*************** End ******************", now.strftime("%Y-%m-%d %H:%M:%S"))

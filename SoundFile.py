@@ -14,6 +14,8 @@ import numpy as np
 import skimage.io
 import os
 from pathlib import Path
+from PIL import Image
+
 
 def scale_minmax(X, min=0.0, max=1.0):
     X_std = (X - X.min()) / (X.max() - X.min())
@@ -66,7 +68,7 @@ class SoundFile:
         skimage.io.imsave(namePng, img)
 
         
-    #  ok : export a color spectrogram as png 
+    #  ok: export a color spectrogram as png 
     def exportMelSpectrogramColor(self):
          # use the decibel scale to get the final Mel Spectrogram - v2
         sgram_mag, _ = librosa.magphase(self.sgram)
@@ -78,8 +80,9 @@ class SoundFile:
         p = Path(self.nameFile)
         namePng = self.out_folder_png + p.stem + '.png' # same name for the png file as wav
         fig.savefig(namePng)
-    
-    #  ok : display a color spectrogram
+        self.cropImage(namePng)
+
+    #  ok: display a color spectrogram
     def showMelSpectrogram(self):
          # use the decibel scale to get the final Mel Spectrogram - v2
         sgram_mag, _ = librosa.magphase(self.sgram)
@@ -87,4 +90,15 @@ class SoundFile:
         mel_sgram = librosa.amplitude_to_db(mels, ref=np.min)
         librosa.display.specshow(mel_sgram, sr=self.sample_rate, x_axis='time', y_axis='mel')
         plt.colorbar(format='%+2.0f dB'); # vertical legend
+    
+    # relove the white margins
+    def cropImage(self, namePng):
+        im = Image.open(namePng)
+        # Setting the points for cropped image
+        left = 54
+        top = 36
+        right = 387 # so width: 333
+        bottom = 252 # so height: 216
+        im1 = im.crop((left, top, right, bottom))
+        im1.save(namePng)
 
