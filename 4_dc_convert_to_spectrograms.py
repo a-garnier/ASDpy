@@ -11,13 +11,10 @@
 
 from os import listdir
 from os.path import isfile, join
-# import random
 import numpy as np
 import sys
 
-countImages =  0    # counter for all images
-countImagesNormal =  0   
-countImagesAnomaly =  0  
+
 nbImagesTotestEachClass = 20 # put this count of images in png_test (for each class)
 dictStat = {'normal': 0, 'anomaly': 0} # stats count of files in 2 classes
  
@@ -38,6 +35,9 @@ for folder_machine in list_datasets: # ['valve']
         wavfiles.remove('.DS_Store')
         
     nbWavs = len(wavfiles)
+    countImages =  0    # counter for all images
+    countImagesNormal =  0   
+    countImagesAnomaly =  0
     
     # count files in each class
     for f in wavfiles:
@@ -75,7 +75,7 @@ for folder_machine in list_datasets: # ['valve']
             # print('!!! image test: ', classPrefix)
             
         if countImages % 100 == 0:
-            print('countImages generated...: ', countImages, ' / ', nbWavs)
+            print('countImages generated...: ', countImages, ' / ', nbWavs, '(', folder_machine, ')')
         
         s = SoundFile(use_folder + f, out_folder_png)
         s.exportMelSpectrogramColor() # create color file    

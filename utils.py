@@ -2,16 +2,15 @@
 
 """
     global variables & fonctions
-
+    faire un 4_utils.py et y enlever folders_train_test
 """
 
 
 rootFolder = '/Users/david/DEVS_LOCAL/dev-ia-son/partage-ia-son/'
 folders_train_test = ['train', 'validation']  # names of train + validation folders (test is used for some test on some png)
 
-# list_datasets = ['fan', 'pump', 'ToyCar', 'slider', 'ToyConveyor', 'valve']  # folders in rootFolder
-# list_datasets = ['valve_mini']  # folders in rootFolder - test!
-list_datasets = ['valve'] 
+list_datasets = [ 'pump', 'ToyCar', 'fan', 'ToyConveyor']  # folders in rootFolder  +  'valve'
+# list_datasets = ['slider'] #1
 
 
 
