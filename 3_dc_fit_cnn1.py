@@ -72,7 +72,7 @@ classifier.fit_generator(training_set,
                          validation_steps = 2000)
 
 # save the cnn to disk  -----------------------
-filename_model = rootFolder + 'dc_classifiers/' + datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + '_' + machine + '_cnn.h5'
+filename_model = rootFolder + '3_dc_classifiers/' + datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + '_' + machine + '_cnn.h5'
 # filename_model = 'cnn.sav'
 classifier.save(filename_model)
 print('model saved : ', filename_model)

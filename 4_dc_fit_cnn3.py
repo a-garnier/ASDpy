@@ -109,7 +109,7 @@ for folder_machine in list_datasets:
     )
 
     # save the model to disk  ----------------------- ' + datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + '_
-    filename_classifier = rootFolder + 'dc_classifiers/' + folder_machine + '_cnn.h5'
+    filename_classifier = rootFolder + '4_dc_classifiers/' + folder_machine + '_cnn.h5'
     model.save(filename_classifier)
 
     print(folder_machine, ': model saved: ', filename_classifier)

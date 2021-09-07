@@ -79,7 +79,7 @@ classifier.fit_generator(training_set,
                          validation_steps = 2000)
 
 # save the cnn to disk  -----------------------
-filename_classifier = rootFolder + 'dc_classifiers/' + datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + '_' + machine + '_cnn.h5'
+filename_classifier = rootFolder + '3_dc_classifiers/' + datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + '_' + machine + '_cnn.h5'
 # filename_classifier = 'cnn.sav'
 classifier.save(filename_classifier)
 # joblib.dump(classifier, filename_classifier + ".sav")  

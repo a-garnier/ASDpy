@@ -29,7 +29,7 @@ modelName = machine + '_cnn.h5'
 
 image_size = (333, 216)
 png_folder = rootFolder + 'data/' + machine + '/png_test_v4/'
-model_folder = rootFolder + 'dc_classifiers/' + modelName
+model_folder = rootFolder + '4_dc_classifiers/' + modelName
 threshold = 0.6 # if > , change class
 
 # load the model from disk

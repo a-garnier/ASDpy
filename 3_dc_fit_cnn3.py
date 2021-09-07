@@ -137,7 +137,7 @@ model.fit(
 
 
 # save the cnn to disk  -----------------------
-filename_classifier = rootFolder + 'dc_classifiers/' + datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + '_' + machine + '_cnn.h5'
+filename_classifier = rootFolder + '3_dc_classifiers/' + datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + '_' + machine + '_cnn.h5'
 model.save(filename_classifier)
 
 

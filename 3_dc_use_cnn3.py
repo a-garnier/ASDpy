@@ -23,7 +23,7 @@ modelName = '2021-08-03-16-10-24_valve_cnn.h5'
 # ---
 png_folder = rootFolder + 'data/' + machine + '/png_test/'
 # load the model from disk
-pathModel = rootFolder + 'dc_classifiers/' + modelName
+pathModel = rootFolder + '3_dc_classifiers/' + modelName
 model = load_model(pathModel)
 
 
