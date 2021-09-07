@@ -20,10 +20,10 @@ from keras.models import load_model
 # machine = list_datasets[0]
 # machine = 'valve'
 # machine = 'slider'
-# machine = 'pump'
+machine = 'pump'
 # machine = 'fan'
 # machine = 'ToyCar'
-machine = 'ToyConveyor'
+# machine = 'ToyConveyor' # doesn't work
 
 modelName = machine + '_cnn.h5' 
 
