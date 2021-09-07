@@ -14,9 +14,6 @@ from tensorflow import keras
 from tensorflow.keras import layers
 
 
-# machine = list_datasets[0]
-# print('machine:', machine) # use the first folder: e.g. 'valve'
-
 # Part 1 - Building the CNN
 image_size = (333, 216)
 batch_size = 32
@@ -90,7 +87,6 @@ model.compile(
 
 # Part 2 - Fitting the CNN to the images
 for folder_machine in list_datasets: 
-    # folder_pngs = 'data/' + folder_machine + '/png_v4'
     use_folder = rootFolder + 'data/' + folder_machine + '/png_v4'
     train_ds = tf.keras.preprocessing.image_dataset_from_directory(
         use_folder,
@@ -112,8 +108,8 @@ for folder_machine in list_datasets:
         train_ds, epochs=epochs, validation_data=val_ds,
     )
 
-    # save the model to disk  -----------------------
-    filename_classifier = rootFolder + 'dc_classifiers/' + datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + '_' + folder_machine + '_cnn.h5'
+    # save the model to disk  ----------------------- ' + datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + '_
+    filename_classifier = rootFolder + 'dc_classifiers/' + folder_machine + '_cnn.h5'
     model.save(filename_classifier)
 
     print(folder_machine, ': model saved: ', filename_classifier)

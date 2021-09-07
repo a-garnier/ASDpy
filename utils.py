@@ -2,7 +2,7 @@
 
 """
     global variables & fonctions
-    faire un 4_utils.py et y enlever folders_train_test
+    faire un 4_utils.py et y enlever folders_train_test + mettre image_size
 """
 
 

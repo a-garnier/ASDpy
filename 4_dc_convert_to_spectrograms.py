@@ -15,7 +15,7 @@ import numpy as np
 import sys
 
 
-nbImagesTotestEachClass = 20 # put this count of images in png_test (for each class)
+nbImagesTotestEachClass = 30 # put this count of images in png_test (for each class)
 dictStat = {'normal': 0, 'anomaly': 0} # stats count of files in 2 classes
  
 from SoundFile import SoundFile
@@ -63,7 +63,7 @@ for folder_machine in list_datasets: # ['valve']
         countImages += 1
         if classPrefix == 'normal':
             countImagesNormal += 1
-        if classPrefix == 'anomaly':
+        if classPrefix == 'anomaly':    
             countImagesAnomaly += 1
 
         out_folder_png = rootFolder + 'data/' + folder_machine + '/png_v4/' + classPrefix + '/' # data/slider/png_v4/normal/
