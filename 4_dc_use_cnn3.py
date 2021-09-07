@@ -234,68 +234,6 @@ print("%s: accuracy:  %.2f" % (machine, countCorrectPrediction / len(df_result))
     File anomaly_id_00_00000032.png predict OK (score: 1.80%).
     File anomaly_id_04_00000072.png predict OK (score: 0.06%).
 """
-""" --- pump: accuracy:  0.58
-    File normal_id_02_00000124.png predict OK (score: 99.98%).
-    File anomaly_id_06_00000036.png predict NOK (score: 99.63%).
-    File normal_id_00_00000158.png predict OK (score: 99.48%).
-    File normal_id_06_00000683.png predict OK (score: 98.57%).
-    File anomaly_id_06_00000094.png predict NOK (score: 98.36%).
-    File normal_id_02_00000530.png predict OK (score: 97.76%).
-    File anomaly_id_02_00000071.png predict NOK (score: 95.15%).
-    File anomaly_id_02_00000075.png predict NOK (score: 92.85%).
-    File normal_id_00_00000018.png predict OK (score: 87.82%).
-    File normal_id_06_00000211.png predict OK (score: 74.88%).
-    File normal_id_00_00000108.png predict OK (score: 67.46%).
-    File normal_id_04_00000125.png predict OK (score: 65.74%).
-    File normal_id_06_00000248.png predict OK (score: 61.96%).
-    File normal_id_00_00000099.png predict NOK (score: 58.96%).
-    File anomaly_id_02_00000083.png predict OK (score: 58.39%).
-    File anomaly_id_00_00000005.png predict OK (score: 51.69%).
-    File normal_id_02_00000522.png predict NOK (score: 44.72%).
-    File normal_id_02_00000538.png predict NOK (score: 38.62%).
-    File normal_id_00_00000004.png predict NOK (score: 33.95%).
-    File normal_id_02_00000464.png predict NOK (score: 28.73%).
-    File anomaly_id_02_00000101.png predict OK (score: 20.53%).
-    File normal_id_00_00000379.png predict NOK (score: 20.51%).
-    File normal_id_02_00000551.png predict NOK (score: 19.65%).
-    File anomaly_id_00_00000064.png predict OK (score: 17.80%).
-    File anomaly_id_00_00000136.png predict OK (score: 16.33%).
-    File anomaly_id_00_00000102.png predict OK (score: 14.86%).
-    File anomaly_id_02_00000013.png predict OK (score: 14.12%).
-    File anomaly_id_00_00000032.png predict OK (score: 12.40%).
-    File normal_id_00_00000304.png predict NOK (score: 10.99%).
-    File anomaly_id_00_00000092.png predict OK (score: 9.65%).
-    File normal_id_00_00000020.png predict NOK (score: 8.87%).
-    File anomaly_id_06_00000044.png predict OK (score: 7.56%).
-    File anomaly_id_04_00000072.png predict OK (score: 6.61%).
-    File anomaly_id_02_00000001.png predict OK (score: 6.53%).
-    File normal_id_06_00000405.png predict NOK (score: 6.40%).
-    File normal_id_06_00000130.png predict NOK (score: 4.69%).
-    File normal_id_02_00000478.png predict NOK (score: 3.88%).
-    File anomaly_id_00_00000073.png predict OK (score: 2.71%).
-    File normal_id_06_00000065.png predict NOK (score: 2.68%).
-    File normal_id_00_00000015.png predict NOK (score: 2.63%).
-    File anomaly_id_00_00000035.png predict OK (score: 2.28%).
-    File anomaly_id_04_00000084.png predict OK (score: 2.03%).
-    File anomaly_id_00_00000097.png predict OK (score: 1.91%).
-    File anomaly_id_00_00000013.png predict OK (score: 1.56%).
-    File anomaly_id_02_00000040.png predict OK (score: 1.53%).
-    File anomaly_id_00_00000106.png predict OK (score: 1.38%).
-    File normal_id_00_00000048.png predict NOK (score: 1.29%).
-    File normal_id_04_00000039.png predict NOK (score: 1.16%).
-    File normal_id_00_00000162.png predict NOK (score: 1.14%).
-    File normal_id_00_00000774.png predict NOK (score: 1.12%).
-    File anomaly_id_02_00000092.png predict OK (score: 1.12%).
-    File normal_id_00_00000103.png predict NOK (score: 0.74%).
-    File anomaly_id_06_00000073.png predict OK (score: 0.69%).
-    File normal_id_06_00000935.png predict NOK (score: 0.58%).
-    File normal_id_00_00000024.png predict NOK (score: 0.46%).
-    File anomaly_id_04_00000080.png predict OK (score: 0.30%).
-    File anomaly_id_06_00000065.png predict OK (score: 0.23%).
-    File anomaly_id_00_00000114.png predict OK (score: 0.16%).
-    File anomaly_id_04_00000047.png predict OK (score: 0.10%).
-    File anomaly_id_00_00000108.png predict OK (score: 0.06%).
-"""
 """ --- fan: accuracy:  0.92
     File normal_id_06_00000408.png predict OK (score: 100.00%).
     File normal_id_06_00000426.png predict OK (score: 100.00%).
@@ -482,7 +420,4 @@ print("%s: accuracy:  %.2f" % (machine, countCorrectPrediction / len(df_result))
     File anomaly_id_01_00000070.png predict NOK (score: 98.68%).
     File anomaly_id_01_00000063.png predict NOK (score: 98.49%).
 """
-
-
-
 
