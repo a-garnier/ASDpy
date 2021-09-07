@@ -18,9 +18,9 @@ from keras.models import load_model
 
 # config one machine 
 # machine = list_datasets[0]
-# machine = 'valve'
+machine = 'valve'
 # machine = 'slider'
-machine = 'pump'
+# machine = 'pump'
 # machine = 'fan'
 # machine = 'ToyCar'
 # machine = 'ToyConveyor' # doesn't work
