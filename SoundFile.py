@@ -38,9 +38,10 @@ class SoundFile:
     # n_mels = 128 # number of bins in spectrogram. Height of image
     # time_steps = 384 # number of time-steps. Width of image
 
-    def __init__(self, nameFile, out_folder_png):
+    def __init__(self, nameFile, out_folder_png, nameMachine = ''):
         # print('init the audio file:', nameFile)
         self.nameFile = nameFile
+        self.nameMachine = nameMachine
         self.out_folder_png = out_folder_png
         self.samples, self.sample_rate = librosa.load(nameFile, sr=None)
         # self.samples : (160000,) complex matrix
@@ -64,7 +65,7 @@ class SoundFile:
         img = np.flip(img, axis=0) # put low frequencies at the bottom in image
         img = 255-img # invert. make black==more energy
         p = Path(self.nameFile)
-        namePng = self.out_folder_png + p.stem + '.png' #same name for the png file as wav
+        namePng = self.out_folder_png + p.stem + '_' + self.nameMachine + '.png' 
         skimage.io.imsave(namePng, img)
 
         
@@ -78,7 +79,7 @@ class SoundFile:
         ax = fig.add_subplot(111)
         librosa.display.specshow(mel_sgram, sr=self.sample_rate,  ax=ax, x_axis=None, y_axis=None)
         p = Path(self.nameFile)
-        namePng = self.out_folder_png + p.stem + '.png' # same name for the png file as wav
+        namePng = self.out_folder_png + p.stem + '_' + self.nameMachine + '.png' # same name for the png file as wav
         fig.savefig(namePng)
         self.cropImage(namePng)
 
