@@ -37,6 +37,7 @@ nbPredictionOK = 0
 list_machine = ['ToyCar', 'ToyConveyor', 'slider', 'pump', 'fan', 'valve']  # ok test
 # browse test files
 wavfiles = [f for f in listdir(png_test_folder) if isfile(join(png_test_folder, f))] # 7730 pngs
+nbWavs = len(wavfiles)
 for nameFilePngTotest in wavfiles:
     if nameFilePngTotest[-4:] != '.png': # ignore non .png files
         continue
@@ -55,28 +56,30 @@ for nameFilePngTotest in wavfiles:
     # print(nameFilePngTotest, np.rint(prediction)) # [[0. 0. 0. 1. 0. 0.]]
     # print(nameFilePngTotest, np.rint(prediction).argmax(axis = 1)) # 
     indiceClassNamePredict = np.rint(prediction).argmax(axis = 1)[0]
-    classOK = False
     predictionOK = False
     #todo : test aussi que la somme du tableau = 1 (un seul 1 dans le tableau)
     # if the prediction is right, sound is normal otherwise, it's anormal
-    if classNameReal == list_machine[indiceClassNamePredict]:
-        classOK = True
+    classOK = True if classNameReal == list_machine[indiceClassNamePredict] else False
+    # if classNameReal == list_machine[indiceClassNamePredict]:
+    #     classOK = True
     if classOK and classPrefixReal == 'normal' or not classOK and classPrefixReal == 'anomaly':
         predictionOK = True
         nbPredictionOK+= 1
     # print(nameFilePngTotest, result) # [[0. 0. 0. 1. 0. 0.]]
     # score = prediction[0]
-    print(nameFilePngTotest, np.rint(prediction), indiceClassNamePredict, list_machine[indiceClassNamePredict], predictionOK)
+    print(nameFilePngTotest, np.round(prediction, 2), np.rint(prediction), indiceClassNamePredict, list_machine[indiceClassNamePredict], predictionOK) #ok
     # df_result = df_result.append({'file': nameFilePngTotest, 'score': score}, ignore_index=True)
+    if indiceFile % 100 == 0:
+        print('predictions generated...: ', indiceFile, ' / ', nbWavs)
     indiceFile += 1
-    if indiceFile == 18:
+    if indiceFile == 20:
         break
     # normal if list_machine
 # df_result = df_result.sort_values(by = ['score'], ascending = False)
 # df_result.head(40)
 
 accuracy = nbPredictionOK / indiceFile
-print('accuracy: ', accuracy)
+print('indiceFile: ', indiceFile, ' nbPredictionOK: ', nbPredictionOK, ' accuracy: ', accuracy)
 # countCorrectPrediction = 0
 # for index, row in df_result.iterrows():
 #     # print("file %s : %.2f%%" % (row['file'], row['score']))
@@ -94,6 +97,7 @@ print('accuracy: ', accuracy)
 
 # print("%s: accuracy:  %.2f" % (machine, countCorrectPrediction / len(df_result)))
 
+            #  ['ToyCar', 'ToyConveyor', 'slider', 'pump', 'fan', 'valve'] 
 # anomaly_id_02_00000078_ToyCar.png [[0. 1. 0. 0. 0. 0.]] 1 ToyConveyor True
 # anomaly_id_04_00000046_slider.png [[0. 0. 0. 0. 1. 0.]] 4 fan True
 # anomaly_id_02_00000097_slider.png [[0. 0. 0. 0. 1. 0.]] 4 fan True
@@ -112,4 +116,29 @@ print('accuracy: ', accuracy)
 # anomaly_id_02_00000205_ToyCar.png [[1. 0. 0. 0. 0. 0.]] 0 ToyCar False
 # anomaly_id_02_00000232_ToyCar.png [[1. 0. 0. 0. 0. 0.]] 0 ToyCar False
 # anomaly_id_00_00000135_fan.png [[0. 0. 1. 0. 0. 0.]] 2 slider True
-# accuracy:  0.61
+# indiceFile:  7730  nbPredictionOK:  3939  accuracy:  0.5095730918499353
+
+# v2:
+# anomaly_id_02_00000078_ToyCar.png [[0.01 0.99 0.   0.   0.   0.  ]] [[0. 1. 0. 0. 0. 0.]] 1 ToyConveyor True
+# anomaly_id_04_00000046_slider.png [[0. 0. 0. 0. 1. 0.]] [[0. 0. 0. 0. 1. 0.]] 4 fan True
+# anomaly_id_02_00000097_slider.png [[0. 0. 0. 0. 1. 0.]] [[0. 0. 0. 0. 1. 0.]] 4 fan True
+# normal_id_06_00000451_pump.png [[0.   0.03 0.   0.95 0.03 0.  ]] [[0. 0. 0. 1. 0. 0.]] 3 pump True
+# anomaly_id_00_00000119_pump.png [[0.   0.99 0.   0.   0.   0.  ]] [[0. 1. 0. 0. 0. 0.]] 1 ToyConveyor True
+# anomaly_id_02_00000254_fan.png [[0.   0.31 0.   0.   0.68 0.  ]] [[0. 0. 0. 0. 1. 0.]] 4 fan False
+# normal_id_06_00000637_pump.png [[0.   0.01 0.01 0.85 0.13 0.  ]] [[0. 0. 0. 1. 0. 0.]] 3 pump True
+# normal_id_04_00000546_fan.png [[0.   0.13 0.04 0.   0.83 0.  ]] [[0. 0. 0. 0. 1. 0.]] 4 fan True
+# normal_id_02_00000492_valve.png [[0. 0. 0. 0. 0. 1.]] [[0. 0. 0. 0. 0. 1.]] 5 valve True
+# normal_id_02_00000347_valve.png [[0. 0. 0. 0. 0. 1.]] [[0. 0. 0. 0. 0. 1.]] 5 valve True
+# anomaly_id_00_00000024_valve.png [[0.   0.62 0.   0.   0.01 0.38]] [[0. 1. 0. 0. 0. 0.]] 1 ToyConveyor True
+# anomaly_id_03_00000031_ToyCar.png [[0.99 0.01 0.   0.   0.   0.  ]] [[1. 0. 0. 0. 0. 0.]] 0 ToyCar False
+# anomaly_id_00_00000118_pump.png [[0.   0.01 0.   0.98 0.   0.  ]] [[0. 0. 0. 1. 0. 0.]] 3 pump False
+# anomaly_id_02_00000244_fan.png [[0.   0.   0.19 0.02 0.79 0.  ]] [[0. 0. 0. 0. 1. 0.]] 4 fan False
+# anomaly_id_04_00000087_valve.png [[0. 0. 0. 0. 0. 1.]] [[0. 0. 0. 0. 0. 1.]] 5 valve False
+# anomaly_id_02_00000205_ToyCar.png [[0.92 0.08 0.   0.   0.   0.  ]] [[1. 0. 0. 0. 0. 0.]] 0 ToyCar False
+# anomaly_id_02_00000232_ToyCar.png [[0.71 0.29 0.   0.   0.   0.  ]] [[1. 0. 0. 0. 0. 0.]] 0 ToyCar False
+# anomaly_id_00_00000135_fan.png [[0. 0. 1. 0. 0. 0.]] [[0. 0. 1. 0. 0. 0.]] 2 slider True
+# anomaly_id_03_00000006_ToyCar.png [[0. 1. 0. 0. 0. 0.]] [[0. 1. 0. 0. 0. 0.]] 1 ToyConveyor True
+# normal_id_06_00000094_valve.png [[0. 0. 0. 0. 0. 1.]] [[0. 0. 0. 0. 0. 1.]] 5 valve True
+
+
+
