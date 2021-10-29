@@ -16,7 +16,7 @@ import sys
 
 
 nbImagesTotestEachClass = 30 # put this count of images in png_test (for each class)
-dictStat = {'normal': 0, 'anomaly': 0} # stats count of files in 2 classes
+dictStat = {'normal': 0, 'anomaly': 0} # init stats count of files in 2 classes
  
 from SoundFile import SoundFile
 from utils import list_datasets, rootFolder

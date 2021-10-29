@@ -2,11 +2,8 @@
 
 """
     Fit a CNN on the pngs files in data_v5/train/[machine] ---------> (with image_dataset_from_directory)
-    from: https://blog.jovian.ai/using-resnet-for-image-classification-4b3c42f2a27e
-"""
 
-# REFAIRE !! avec https://blog.jovian.ai/using-resnet-for-image-classification-4b3c42f2a27e 
-# https://keras.io/examples/
+"""
 
 
 from utils import list_datasets, rootFolder
