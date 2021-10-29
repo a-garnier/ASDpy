@@ -5,6 +5,7 @@ Utiliser python 3.8.5 64bits.
 
 ## dossiers :
 ```_final : scripts python
+_final : code à livrer (explorations de différentes solutions)
 _data_origin : datas récupérées de kaggle sous la forme :
     -- fan/
         -- test
