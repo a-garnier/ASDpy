@@ -2,7 +2,6 @@
 
 """
     global variables & fonctions
-    faire un 4_utils.py et y enlever folders_train_test + mettre image_size
 """
 import pandas as pd
 from os.path import isfile, join
@@ -10,12 +9,9 @@ import os
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-# rootFolder = '/Users/david/DEVS_LOCAL/dev-ia-son/partage-ia-son/'
-folders_train_test = ['train', 'validation']  # names of train + validation folders (test is used for some test on some png)
-
 list_datasets = ['valve', 'slider', 'pump', 'ToyCar', 'fan', 'ToyConveyor']  # folders machine  +  'valve', 'slider'
 
-# list_datasets = ['valve'] #1
+# list_datasets = ['valve'] # for testing on only 1 machine
 
 def countInFolder():
     """
