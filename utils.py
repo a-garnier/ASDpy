@@ -7,6 +7,10 @@
 
 
 rootFolder = '/Users/david/DEVS_LOCAL/dev-ia-son/partage-ia-son/'
+
+# dc2020task2 = '/drive/MyDrive/asdpy/data/original/dc2020task2'
+dc2020task2 = "C:/Users/garnier_a/Documents/projet datascience/data"
+
 folders_train_test = ['train', 'validation']  # names of train + validation folders (test is used for some test on some png)
 
 list_datasets = ['valve', 'slider', 'pump', 'ToyCar', 'fan', 'ToyConveyor']  # folders in rootFolder  +  'valve', 'slider'
