@@ -48,7 +48,7 @@ cnn1/4_cnn1_use.ipybn : utilise le modèle relatif à chaque machine sur les don
 
 cnn2/2_cnn2_convert_to_spectrograms.ipynb : créé les dossiers et génère pour chaque machine les images des spectrogrammes dans _data_png_cnn2
 cnn2/3_cnn2_fit.ipynb : entraine un modèle cnn sur les images des machine dans _data_png_cnn2 + enregistre un modèle cnn global dans _classifiers
-cnn2/4_cnn2_use.ipybn : utilise le modèle cnn global sur les données de test de _data_png_cnn2 et affiche les résultats
+cnn2/4_cnn2_use.ipynb : utilise le modèle cnn global sur les données de test de _data_png_cnn2 et affiche les résultats
 ```
 
 
