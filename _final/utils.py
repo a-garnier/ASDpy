@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 list_datasets = ['valve', 'slider', 'pump', 'ToyCar', 'fan', 'ToyConveyor']  # folders machine  +  'valve', 'slider'
 
 # list_datasets = ['valve'] # for testing on only 1 machine
-
+    
 def countInFolder():
     """
         get folders names and count all files in each folder
@@ -21,7 +21,7 @@ def countInFolder():
     list_stats= []
 
     for machine_folder in list_datasets:
-        train_folder = '../_data_origin/' + machine_folder + '/train/'
+        train_folder = '../../_data_origin/' + machine_folder + '/train/'
         # print('f=', train_folder)
         wavFilesTrain = [f for f in os.listdir(train_folder) if isfile(join(train_folder, f))]
         if '.DS_Store' in wavFilesTrain: wavFilesTrain.remove('.DS_Store')
@@ -45,7 +45,7 @@ def data_allFilesByType(typeFolder):
     # get a df with all files and categories
     for folder in list_datasets:
         rel_folder =  folder + '/' + typeFolder
-        full_folder = '../_data_origin/' + rel_folder + '/'
+        full_folder = '../../_data_origin/' + rel_folder + '/'
         # full_folder = rootFolder  + 'data/' + '/' + rel_folder + '/'
         # print('full_folder=', full_folder)
         wavFilesTrain = [f for f in os.listdir(full_folder) if isfile(join(full_folder, f))]
