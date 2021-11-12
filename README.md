@@ -6,8 +6,10 @@ Utiliser python 3.8.5 64bits.
 ## Dossiers :
 ```
 _final : scripts python (explorations de différentes solutions)
-_final/cnn1 : scripts pour la solution cnn v1
-_final/cnn2 : scripts pour la solution cnn v2
+_final/cnn1 : scripts pour l'approche cnn v1
+_final/cnn2 : scripts pour l'approche cnn v2
+_final/autoencoder : scripts pour l'approche autoencoder  
+_final/Non deep learning : scripts pour l'approche Non deep learning  
 
 _data_origin : datas récupérées de kaggle sous la forme :
     -- fan/
@@ -31,8 +33,8 @@ _data_origin : datas récupérées de kaggle sous la forme :
 
 _data_png_cnn1 : (généré par _final/cnn1/2_cnn1_convert_to_spectrograms.ipynb) contient les spectrogrammes pour le cnn v1
 _data_png_cnn2 : (généré par _final/cnn2/2_cnn2_convert_to_spectrograms.ipynb) contient les spectrogrammes pour le cnn v2
-_classifiers_cnn1 : contient les modèles pour cnn1
-_classifier_cnn2: contient le modèle pour cnn2
+_classifiers_cnn1 :  (généré par _final/cnn1/3_cnn1_fit.ipynb) contient les modèles pour cnn1
+_classifier_cnn2:  (généré par _final/cnn2/3_cnn2_fit.ipynb) contient le modèle pour cnn2
 ```
 
 ##  Fichiers :
