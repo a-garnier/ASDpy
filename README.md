@@ -1,4 +1,4 @@
-# ASDpy
+# ASDpy (Anomalous Sound Detection)
 ## Projet de reconnaissance de sons de machines anormaux
 
 Utiliser python 3.8.5 64bits.
