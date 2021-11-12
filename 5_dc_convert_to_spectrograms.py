@@ -13,14 +13,14 @@ from os.path import isfile, join
 import numpy as np
 import sys
 
+from SoundFile import SoundFile
+from utils import list_datasets, rootFolder
+import datetime
 
 # nbImagesTotestEachClass = 1000 # put this count of images in all_png_test_v5 (for each class)
 nbImagesTotestEachClass = 1000 # put this count of images in all_png_test_v5 (for each class)
 dictStat = {'normal': 0, 'anomaly': 0} # stats count of files in 2 classes
  
-from SoundFile import SoundFile
-from utils import list_datasets, rootFolder
-import datetime
 
 now = datetime.datetime.now()
 print("*************** Start... ******************", now.strftime("%Y-%m-%d %H:%M:%S"))
