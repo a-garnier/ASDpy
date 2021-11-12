@@ -1,4 +1,4 @@
-# ASDpy
+# ASDpy (Anomalous Sound Detection)
 ## Projet de reconnaissance de sons de machines anormaux
 
 Utiliser python 3.8.5 64bits.
@@ -49,12 +49,13 @@ cnn1/4_cnn1_use.ipybn : utilise le modèle relatif à chaque machine sur les don
 cnn2/2_cnn2_convert_to_spectrograms.ipynb : créé les dossiers et génère pour chaque machine les images des spectrogrammes dans _data_png_cnn2
 cnn2/3_cnn2_fit.ipynb : entraine un modèle cnn sur les images des machine dans _data_png_cnn2 + enregistre un modèle cnn global dans _classifiers
 cnn2/4_cnn2_use.ipynb : utilise le modèle cnn global sur les données de test de _data_png_cnn2 et affiche les résultats
+
+Non deep learning/Create_arrays_files.ipynb: Transformation des spectogrammes en vecteurs de pixel / 1 fichier image --> 1 fichier arrays
+Non deep learning/Création_des_fichiers_DF.ipynb:Création des Dataframes utilisés à partir des fichiers arrays/ 1 DT = n fichiers arrays
+Non deep learning/Isolation_Forest.ipynb:Script isolation Forest
+Non deep learning/svm.ipynb:Script SVM
+
 ```
-
-
-
-
-
 
 
     
