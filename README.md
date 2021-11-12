@@ -60,7 +60,7 @@ Non deep learning/Création_des_fichiers_DF.ipynb:Création des Dataframes utili
 Non deep learning/Isolation_Forest.ipynb:Script isolation Forest
 Non deep learning/svm.ipynb:Script SVM
 
-rnn/4_ag_rnn: approche pas RNN
+rnn/4_ag_rnn: approche par RNN
 ```
 
 
