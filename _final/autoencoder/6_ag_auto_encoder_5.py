@@ -123,8 +123,8 @@ input_dim = pixels
 #input_dim = (128, 64, 1) #pas possible de passer un tuple
 
 encoding_dim = pixels
-hidden_dim_1 = int(encoding_dim / 1) #
-hidden_dim_2= int(hidden_dim_1 / 1) #  
+hidden_dim_1 = int(encoding_dim / 2) #
+hidden_dim_2= int(hidden_dim_1 / 2) #  
 #learning_rate = 1e-7
 learning_rate = 0.005
 
