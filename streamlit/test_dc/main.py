@@ -2,6 +2,7 @@
 Created on Thu May 27 18:49:06 2021
 
 @author: david
+launch: streamlit run main.py
 help: https://share.streamlit.io/daniellewisdl/streamlit-cheat-sheet/app.py
 
 """
@@ -14,9 +15,8 @@ import numpy as np
 
 from modelisation import generate_data
 
-m = generate_data()
-
-# st.text(m)
+g_data = generate_data()
+st.text(g_data)
 
 # st.sidebar.text('Fixed width text')
 # >>> a = st.sidebar.radio('R:',[1,2])
