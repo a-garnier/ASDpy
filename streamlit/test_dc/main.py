@@ -2,9 +2,18 @@
 Created on Thu May 27 18:49:06 2021
 
 @author: david
+launch: streamlit run main.py 
 help: https://share.streamlit.io/daniellewisdl/streamlit-cheat-sheet/app.py
 
 """
+
+# $ streamlit --help
+# $ streamlit run your_script.py
+# $ streamlit hello
+# $ streamlit config show
+# $ streamlit cache clear
+# $ streamlit docs
+# $ streamlit --version
 
 import streamlit as st
 # import matplotlib as plt
