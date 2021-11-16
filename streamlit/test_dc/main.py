@@ -21,10 +21,9 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-from modelisation import generate_data
+from modelisation import display_stats_cnn1
 
-data = generate_data()
-st.text(data)
+
 
 # st.sidebar.text('Fixed width text')
 # >>> a = st.sidebar.radio('R:',[1,2])
@@ -76,7 +75,14 @@ if choix ==options[1]:
 
 if choix ==options[2]:
     st.header(choix)
-    st.write('xxx')
+    machine= 'valve'
+    st.subheader(machine)
+    df_logs = display_stats_cnn1(machine)
+    # st.header(recap.machine)
+    st.dataframe(df_logs)
+    # st.text('accuracy:' + recap.accuracy)
+    # st.text('countPrediction:' + recap.countPrediction)
+
 
 if choix ==options[3]:
     st.header(choix)
