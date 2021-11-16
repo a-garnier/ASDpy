@@ -16,8 +16,8 @@ help: https://share.streamlit.io/daniellewisdl/streamlit-cheat-sheet/app.py
 # $ streamlit --version
 
 import streamlit as st
-# import matplotlib as plt
-# import seaborn as sns
+import matplotlib as plt
+import seaborn as sns
 import pandas as pd
 import numpy as np
 
@@ -39,6 +39,8 @@ from modelisation import display_stats_cnn1
 
 options= ['Présentation', 'Exploration des datas', 'Utilisation cnn', 'Utilisation auto-encoder', 'Convertir fichiers audio en vecteurs']
 choix = st.sidebar.radio('Aller à la section :', options = options)
+list_machines = ['ToyCar', 'ToyConveyor', 'fan', 'pump', 'slider', 'valve']
+
 
 if choix ==options[0]:
     st.title('ASDpy')
@@ -75,14 +77,24 @@ if choix ==options[1]:
 
 if choix ==options[2]:
     st.header(choix)
-    machine= 'valve'
-    st.subheader(machine)
-    df_logs = display_stats_cnn1(machine)
-    # st.header(recap.machine)
-    st.dataframe(df_logs)
-    # st.text('accuracy:' + recap.accuracy)
-    # st.text('countPrediction:' + recap.countPrediction)
+    choix_machine = st.selectbox('Modèle', list_machines)
 
+    # regénère ensuite les 6 modeles .h5 car ceux là ont une précision basse
+    st.subheader(choix_machine)
+    df_logs = display_stats_cnn1(choix_machine)
+    # df
+    st.dataframe(df_logs)
+    # stats 
+    nbCorrect = df_logs[df_logs['correctPrediction'] == 'OK'].shape[0]
+    nbTotal = df_logs.shape[0]
+    st.text('accuracy: ' + str(round(nbCorrect / nbTotal, 3)))
+    st.text('file count: ' + str(nbTotal))
+    # chart 
+    # fig = plt.figure(figsize=(18,6))
+    # fig = df_logs['score'].plot.bar()
+    
+    # sns.displot(df_logs['score']);
+    st.bar_chart(df_logs['score'])
 
 if choix ==options[3]:
     st.header(choix)
