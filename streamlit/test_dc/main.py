@@ -23,9 +23,8 @@ import numpy as np
 
 from modelisation import generate_data
 
-m = generate_data()
-
-# st.text(m)
+data = generate_data()
+st.text(data)
 
 # st.sidebar.text('Fixed width text')
 # >>> a = st.sidebar.radio('R:',[1,2])
