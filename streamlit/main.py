@@ -27,7 +27,7 @@ st.sidebar.write('Antoine Garnier [garnier.antoine66@gmail.com](garnier.antoine6
 	
 
 
-list_machines = ['ToyCar', 'ToyConveyor', 'fan', 'pump', 'slider', 'valve']
+list_machines = ['slider', 'fan', 'ToyCar', 'ToyConveyor',  'pump',  'valve']
 
     
 # presentation of the project
@@ -53,8 +53,8 @@ if choix ==options[0]:
 
 # exploration data
 if choix ==options[1]:
-    spectro_normal = '../../data_v5/all_png_test_v5/normal_id_00_00000001_slider.png'
-    spectro_anormal = '../../data_v5/all_png_test_v5/anomaly_id_00_00000000_pump.png'
+    spectro_normal = '../data_v5/all_png_test_v5/normal_id_00_00000001_slider.png'
+    spectro_anormal = '../data_v5/all_png_test_v5/anomaly_id_00_00000000_pump.png'
     st.header(choix)
     st.subheader('Nombre de fichiers')
     st.subheader('Convertion en spectrogrammes')
@@ -68,7 +68,7 @@ if choix ==options[2]:
     st.header(choix)
     choix_machine = st.selectbox('Modèle', list_machines)
     st.subheader(choix_machine)
-    name_csv_logs = '../../_final/cnn1/cnn_results.csv' 
+    name_csv_logs = '../_final/cnn1/cnn_results.csv' 
     df_logs = pd.read_csv(name_csv_logs)
     df_logs['pred_f'] =  df_logs['file'].apply(lambda x: x.split('_')[0]) 
     df_logs['pred_r'] =  np.random.rand(df_logs.shape[0])
