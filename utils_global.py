@@ -13,9 +13,9 @@ dc2020task2 = "C:/Users/garnier_a/Documents/projet datascience/data"
 
 folders_train_test = ['train', 'validation']  # names of train + validation folders (test is used for some test on some png)
 
-# list_datasets = ['valve', 'slider', 'pump', 'ToyCar', 'fan', 'ToyConveyor']  # folders in rootFolder  +  'valve', 'slider'
+list_datasets = ['valve', 'slider', 'pump', 'ToyCar', 'fan', 'ToyConveyor']  # folders in rootFolder  +  'valve', 'slider'
 
-list_datasets = ['pump', 'fan', 'ToyConveyor']  # folders in rootFolder  +  'valve', 'slider'
+# list_datasets = ['pump']  # folders in rootFolder  +  'valve', 'slider'
 # list_datasets = ['valve'] #1
 
 

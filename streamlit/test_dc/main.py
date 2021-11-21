@@ -18,6 +18,15 @@ from modelisation import display_stats_cnn1
 
 options= ['Présentation', 'Exploration des datas', 'Démo cnn', 'Démo auto-encoder', 'Démo vecteurs']
 choix = st.sidebar.radio('Aller à la section :', options = options)
+st.sidebar.write('Promotion : **DS - mars 21**')
+
+st.sidebar.write('Participants :')
+st.sidebar.write('Frédéric Aymé [frederic.ayme@gmail.com](frederic.ayme@gmail.com)')
+st.sidebar.write('David Campion [cmpdvd@gmail.com](cmpdvd@gmail.com) ')
+st.sidebar.write('Antoine Garnier [garnier.antoine66@gmail.com](garnier.antoine66@gmail.com) ')
+	
+
+
 list_machines = ['ToyCar', 'ToyConveyor', 'fan', 'pump', 'slider', 'valve']
 
     
