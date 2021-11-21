@@ -2,18 +2,10 @@
 Created on Thu May 27 18:49:06 2021
 
 @author: david
-launch: streamlit run main.py 
+launch, use: streamlit run main.py <---------
 help: https://share.streamlit.io/daniellewisdl/streamlit-cheat-sheet/app.py
 
 """
-
-# $ streamlit --help
-# $ streamlit run your_script.py
-# $ streamlit hello
-# $ streamlit config show
-# $ streamlit cache clear
-# $ streamlit docs
-# $ streamlit --version
 
 import streamlit as st
 import matplotlib as plt
@@ -24,24 +16,12 @@ import numpy as np
 from modelisation import display_stats_cnn1
 
 
-
-# st.sidebar.text('Fixed width text')
-# >>> a = st.sidebar.radio('R:',[1,2])
-# img =plt.imread('titanic.jpg')
-# st.image(img)
-
-# #chart
-# sns.countplot(df['colonne'])
-# fig = plt.gcf()
-
-# st.pyplot(fig)
-
-
-options= ['Présentation', 'Exploration des datas', 'Utilisation cnn', 'Utilisation auto-encoder', 'Convertir fichiers audio en vecteurs']
+options= ['Présentation', 'Exploration des datas', 'Démo cnn', 'Démo auto-encoder', 'Démo vecteurs']
 choix = st.sidebar.radio('Aller à la section :', options = options)
 list_machines = ['ToyCar', 'ToyConveyor', 'fan', 'pump', 'slider', 'valve']
 
-
+    
+# presentation of the project
 if choix ==options[0]:
     st.title('ASDpy')
     st.header('(Anomalous Sound Detection)')
@@ -61,11 +41,11 @@ if choix ==options[0]:
         ToyConveyor : 1,33 Go pour 4 111 fichiers
             """)
 
-# page exploration
-spectro_normal = '../../data_v5/all_png_test_v5/normal_id_00_00000001_slider.png'
-spectro_anormal = '../../data_v5/all_png_test_v5/anomaly_id_00_00000000_pump.png'
 
+# exploration data
 if choix ==options[1]:
+    spectro_normal = '../../data_v5/all_png_test_v5/normal_id_00_00000001_slider.png'
+    spectro_anormal = '../../data_v5/all_png_test_v5/anomaly_id_00_00000000_pump.png'
     st.header(choix)
     st.subheader('Nombre de fichiers')
     st.subheader('Convertion en spectrogrammes')
@@ -74,32 +54,27 @@ if choix ==options[1]:
     st.write('exemple de spectrogramme anormal : ' + spectro_anormal)
     st.image(spectro_anormal)
 
-
+# démo cnn 1
 if choix ==options[2]:
     st.header(choix)
     choix_machine = st.selectbox('Modèle', list_machines)
-
-    # regénère ensuite les 6 modeles .h5 car ceux là ont une précision basse
     st.subheader(choix_machine)
-    df_logs = display_stats_cnn1(choix_machine)
-    # df
-    st.dataframe(df_logs)
-    # stats 
-    nbCorrect = df_logs[df_logs['correctPrediction'] == 'OK'].shape[0]
-    nbTotal = df_logs.shape[0]
-    st.text('accuracy: ' + str(round(nbCorrect / nbTotal, 3)))
-    st.text('file count: ' + str(nbTotal))
-    # chart 
-    # fig = plt.figure(figsize=(18,6))
-    # fig = df_logs['score'].plot.bar()
-    
-    # sns.displot(df_logs['score']);
-    st.bar_chart(df_logs['score'])
+    name_csv_logs = '../../_final/cnn1/cnn_results.csv' 
+    df_logs = pd.read_csv(name_csv_logs)
+    df_logs['pred_f'] =  df_logs['file'].apply(lambda x: x.split('_')[0]) 
+    df_logs['pred_r'] =  np.random.rand(df_logs.shape[0])
+    # df_filtre['pred_n'] = df_filtre['score'].apply(lambda sc: sc > cutoff ) 
+    # df_filtre['pred_n'] =  df_filtre['correctPrediction'].apply(lambda pred: 1 if pred == 'OK' else 0.95 ) 
+    df_logs = display_stats_cnn1(df_logs, choix_machine)
 
+# démo auto encoder
 if choix ==options[3]:
     st.header(choix)
-    st.write('xxx')
+    st.write('auto encoder')
     
-    
+# démo vecteurs
+if choix ==options[4]:
+    st.header(choix)
+    st.write('vecteurs')
     
     

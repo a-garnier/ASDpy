@@ -2,70 +2,60 @@
 # import utils
 # import sys
 # import datetime
+import streamlit as st
 import numpy as np
 import pandas as pd
 from os import listdir
 from os.path import isfile, join
-from keras.preprocessing import image
-from keras.models import load_model
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 
-image_size = (333, 216)
 cutoff = 0.9 # if score > cutoff, the machine predicted as "normal" otherwise as "anomaly"
-# indiceFile = 0
-# name_csv_logs = 'cnn_results.csv'
-# df_logs_h = pd.DataFrame(columns=['machine', 'file', 'correctPrediction', 'score'])
-# df_logs_h.to_csv(name_csv_logs, header = True, index = False)
 
-def display_stats_cnn1(machine_folder):
-    name_csv_logs = '../../_final/cnn1/cnn_results.csv' 
-    df_logs = pd.read_csv(name_csv_logs)
+# df_logs: full dataframe of logs
+# machine_folder: 'slider'
+def display_stats_cnn1(df_logs, machine_folder):
     df_filtre = df_logs[df_logs['machine'] == machine_folder]
-    return df_filtre
-    
-def predict_one_machine(machine_folder): # trop lent, utiliser display_stats_cnn1 pour charts des résultats 
-    png_tests_folder = '../../_data_png_cnn1/' + machine_folder + '/png_test/'
-    model_folder = '../../_classifiers_cnn1/cnn_' + machine_folder + '.h5'
-    # renit the result dataframe (store with files tested and scores of the model)
-    df_result = pd.DataFrame(columns=['file', 'score'])
-     # load the model from disk
-    model = load_model(model_folder)
-    wavfiles = [f for f in listdir(png_tests_folder) if isfile(join(png_tests_folder, f))]
-    for nameFilePngTotest in wavfiles:
-        if nameFilePngTotest[-4:] != '.png': # ignore non .png files
-            continue
-        # print('test nameFilePngTotest: ', nameFilePngTotest)
-        test_image = image.load_img(png_tests_folder + nameFilePngTotest, target_size = image_size) 
-        img_array = image.img_to_array(test_image)
-        img_array = np.expand_dims(test_image, axis = 0)
-        predictions = model.predict(img_array)
-        score = predictions[0]
-        df_result = df_result.append({'file': nameFilePngTotest, 'score': score}, ignore_index=True)
+    # df_filtre = df_filtre.sort_values(by = ['score'], ascending = False)
 
-    df_result = df_result.sort_values(by = ['score'], ascending = False)
-    countPrediction = 0
-    countCorrectPrediction = 0
-    for index, row in df_result.iterrows():
-        countPrediction += 1
-        arrName = row['file'].split("_") # anomaly_id_00_00000001.wav
-        classPrefix = arrName[0] # 'normal' or 'anomaly'
-        isNormalPredict = 1 if row['score'] > cutoff else 0
-        isNormalReal = 1 if classPrefix == "normal" else 0
-        if isNormalReal == isNormalPredict:
-            countCorrectPrediction += 1
-        # if countPrediction % 20 == 0: # display result predictions (1 of 20)
-        # correctPrediction = 'OK' if isNormalReal == isNormalPredict else 'NOK'
-        # print("file %s predict %s (score: %.2f%%)." % (row['file'], correctPrediction, 100 * row['score']))
-        # df_logs = pd.read_csv(name_csv_logs)
-        # new_row = {'machine': machine_folder, 'file': row['file'], 'correctPrediction': correctPrediction, 'score': row['score'][0]}
-        # df_logs = df_logs.append(new_row, ignore_index=True)
-        # df_logs.to_csv(name_csv_logs, header = True, index = False)
+    # display stats
+    nbCorrect = df_filtre[df_filtre['correctPrediction'] == 'OK'].shape[0]
+    nbTotal = df_filtre.shape[0]
+    st.text('accuracy: ' + str(round(nbCorrect / nbTotal, 3)) + ' on files count: ' + str(nbTotal))
+
+    # display chart 1: ok 
+    g = sns.relplot(data=df_filtre, 
+                x="score", y="pred_r", hue="pred_f", 
+                height=6, aspect=2, s=190)
+    g._legend.set_bbox_to_anchor((.5, .9))
+    g.set(xlim=(-0.05,1.05), 
+            ylim=(0,1.05),
+            xticks=np.arange(0, 1.1, 0.1), 
+            yticks=np.arange(0, 1.1, 0.1))
+    plt.plot([cutoff, cutoff], [1, 0], 'r--', linewidth=1) # vertical line cutoff
+    st.pyplot(g) 
+    # display chart 2
+    g = sns.relplot(data=df_filtre, 
+                x="score", y="pred_r", hue="correctPrediction", palette=["b", "r"],
+                height=6, aspect=2, s=190)
+    g._legend.set_bbox_to_anchor((.5, .9))
+    g.set(xlim=(-0.05,1.05), 
+        ylim=(0,1.05),
+        xticks=np.arange(0, 1.1, 0.1), 
+        yticks=np.arange(0, 1.1, 0.1))
+    plt.plot([0.9, 0.9], [1, 0], 'r--', linewidth=1)
+    st.pyplot(g) 
+    # fig, ax = plt.subplots(figsize=(5, 2))
+    # g = sns.histplot(df_filtre, x="score", hue='correctPrediction', bins=10)
+    # g.set(xlim=(-0.05,1.05), 
+    #   xticks=np.arange(0, 1.1, 0.1), 
+    # )
+    # st.pyplot(fig)
+    
+    # display dataframe 
+    # st.dataframe(df_filtre)
+    
+    return 1
         
-    # display general result for the machine (correct predictions / total of préeditions)
-    # print("****** %s: accuracy:  %.2f (%i fichiers)" % (machine_folder, countCorrectPrediction / len(df_result), countPrediction))
-    recap = {'machine': machine_folder, 'accuracy': countCorrectPrediction / len(df_result), 'countPrediction': countPrediction}
-    return df_result, recap
 
-    
-# def generate_data():
-#     predict_one_machine('fan')
