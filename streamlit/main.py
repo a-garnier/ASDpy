@@ -18,26 +18,22 @@ from keras.preprocessing import image
 from keras.models import load_model
 
 cutoff = 0.9
-options= ['Présentation', 'Exploration des datas', 'Démo cnn', 'Résultats cnn', 'Conclusion', 'Démo vecteurs']
+options= ['Présentation', 'Exploration des datas', 'Démo cnn', 'Résultats cnn', 'Conclusion']
 choix = st.sidebar.radio('Aller à la section :', options = options)
 st.sidebar.write('Promotion : **DS - mars 21**')
-
 st.sidebar.write('Participants :')
 st.sidebar.write('Frédéric Aymé [frederic.ayme@gmail.com](frederic.ayme@gmail.com)')
 st.sidebar.write('David Campion [cmpdvd@gmail.com](cmpdvd@gmail.com) ')
 st.sidebar.write('Antoine Garnier [garnier.antoine66@gmail.com](garnier.antoine66@gmail.com) ')
-	
 
 @st.cache
 def load_image(image_file):
 	img = Image.open(image_file)
 	return img 
 
-
 list_machines = ['slider', 'fan', 'ToyCar', 'ToyConveyor',  'pump',  'valve']
-
     
-# presentation of the project
+# presentation projet
 if choix ==options[0]:
     st.title('ASDpy')
     st.header('(Anomalous Sound Detection)')
@@ -121,7 +117,7 @@ if choix == options[3]:
     df_logs = display_stats_cnn1(df_logs, choix_machine)
 
     
-# démo vecteurs
+# conclusion
 if choix ==options[4]:
     st.header(choix)
     st.write('conclusion')
