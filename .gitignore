@@ -3,7 +3,6 @@ data/
 *.pyc
 *.png
 *.wav
-*.h5
 *.zip
 
 

@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 
 list_datasets = ['valve', 'slider', 'pump', 'ToyCar', 'fan', 'ToyConveyor']  # folders machine  +  'valve', 'slider'
 
-# list_datasets = ['slider'] # for testing on only 1 machine
+# list_datasets = ['pump'] # for testing on only 1 machine
     
 def countInFolder():
     """

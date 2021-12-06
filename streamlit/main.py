@@ -86,7 +86,8 @@ if choix ==options[2]:
             machine_folder = 'slider' # en dur : slider
             image_size = (333, 216)
             png_tests_folder = '../_data_png_cnn1/' + machine_folder + '/png_test/' # en dur 
-            model_folder = '../_classifiers_cnn1/cnn_' + machine_folder + '.h5'
+            # model_folder = '../_classifiers_cnn1/cnn_' + machine_folder + '.h5'
+            model_folder = '../_classifiers_cnn1/' + machine_folder + '_cnn.h5'
             st.write('nameFilePngTotest:', png_tests_folder + image_file.name)
             model = load_model(model_folder)
             test_image = image.load_img(png_tests_folder + image_file.name, target_size = image_size) 
