@@ -69,7 +69,12 @@ if choix ==options[1]:
 # démo 1 fichier cnn 1
 if choix ==options[2]:
     st.header(choix)
-    st.write('Prédiction sur 1 spectrogramme')
+    st.write('6 modèles indépendants (1 pour chaque machine) entrainés sur 2 classes : normal/anormal.')
+    st.write('Le son est considéré normal si la prédiction > 0.9')
+    st.write('**Démo de prédiction sur 1 spectrogramme avec le modèle "slider" :**')
+    
+    st.markdown('<i>exemple: ../data_png_cnn1/slider/png_test/anomaly_id_00_00000017.png</i>', unsafe_allow_html=True)
+
     # Charger une image spectrogramme
     image_file = st.file_uploader("",type=['png'])
     if image_file is not None:
@@ -98,7 +103,7 @@ if choix ==options[2]:
             isNormalReal = 1 if classPrefix == "normal" else 0
         
             # isNormalPredict = 'Correct' if score > cutoff else 'Incorrect'
-            correctPrediction = 'Correct' if isNormalReal == isNormalPredict else 'Incorrect'
+            correctPrediction = 'Prédiction correcte' if isNormalReal == isNormalPredict else 'Prédiction incorrecte'
         
             st.subheader(result_txt + ' : ' + correctPrediction)
 
@@ -106,6 +111,7 @@ if choix ==options[2]:
 # démo résultats cnn 1
 if choix == options[3]:
     st.header(choix)
+    st.write('Basé sur fichier csv de l\'ensemble des résultats')
     choix_machine = st.selectbox('Modèle', list_machines)
     st.subheader(choix_machine)
     name_csv_logs = '../_final/cnn1/cnn_results.csv' 

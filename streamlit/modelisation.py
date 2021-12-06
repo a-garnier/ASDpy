@@ -54,7 +54,7 @@ def display_stats_cnn1(df_logs, machine_folder):
     # st.pyplot(fig)
     
     # display dataframe 
-    # st.dataframe(df_filtre)
+    st.dataframe(df_filtre)
     
     return 1
         
