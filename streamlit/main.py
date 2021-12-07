@@ -127,6 +127,13 @@ if choix == options[3]:
 # conclusion
 if choix ==options[4]:
     st.header(choix)
-    st.write('conclusion')
-    
+    st.write('Les résultats de cette méthode de cnn sont : ')
+    st.markdown("""
+    ****** valve: accuracy:  0.94 (177 fichiers)
+    ****** slider: accuracy:  0.96 (180 fichiers)\n
+    ****** pump: accuracy:  0.83 (184 fichiers)
+    ****** ToyCar: accuracy:  0.90 (195 fichiers)\n
+    ****** fan: accuracy:  0.93 (183 fichiers)
+    ****** ToyConveyor: accuracy:  0.50 (197 fichiers)\n
+    """)
     
