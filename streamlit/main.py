@@ -38,11 +38,24 @@ if choix ==options[0]:
     st.title('ASDpy')
     st.header('(Anomalous Sound Detection)')
     st.markdown("""
+                La détection des sons anormaux (ASD) consiste à identifier si le son émis par une machine cible est normal ou anormal . La détection automatique des défaillances mécaniques est une technologie essentielle dans la quatrième révolution industrielle. """)
+    st.image('images/asd_schema.png', width=500)
+    st.markdown("""
                 L’objectif est de concevoir un ou plusieurs modèles de machine learning permettant de détecter, à partir de sons émis, les machines défaillantes dans un parc de machines. 
-    Les machines seront donc classifiées sous état “normal” ou “anormal”.
-    Dataset : https://www.kaggle.com/daisukelab/dc2020task2
-                """)
+    Les machines seront donc classifiées sous état “normal” ou “anormal”.\n
+    Le dataset est sur kaggle : https://www.kaggle.com/daisukelab/dc2020task2
+             """)
     
+    
+
+
+# exploration data
+if choix ==options[1]:
+    spectro_normal = '../data_v5/all_png_test_v5/normal_id_00_00000001_slider.png'
+    spectro_anormal = '../data_v5/all_png_test_v5/anomaly_id_00_00000000_pump.png'
+    count_file_by_machine = 'images/count_file_by_machine.png'
+    st.header(choix)
+    st.subheader('Nombre de fichiers')
     st.markdown("""
             Les fichiers sont classés par machine. Il y a 6 machines :
         Valve : 1,22 Go pour 3 771 fichiers
@@ -52,19 +65,17 @@ if choix ==options[0]:
         Fan : 1,67 Go pour 5 151 fichiers
         ToyConveyor : 1,33 Go pour 4 111 fichiers
             """)
-
-
-# exploration data
-if choix ==options[1]:
-    spectro_normal = '../data_v5/all_png_test_v5/normal_id_00_00000001_slider.png'
-    spectro_anormal = '../data_v5/all_png_test_v5/anomaly_id_00_00000000_pump.png'
-    st.header(choix)
-    st.subheader('Nombre de fichiers')
-    st.subheader('Convertion en spectrogrammes')
-    st.write('exemple de spectrogramme normal : ' + spectro_normal)
-    st.image(spectro_normal)
-    st.write('exemple de spectrogramme anormal : ' + spectro_anormal)
-    st.image(spectro_anormal)
+    st.image(count_file_by_machine)
+    st.subheader('Conversion en spectrogrammes')
+    # st.write('exemple de spectrogramme normal : ' + spectro_normal)
+    # st.image(spectro_normal)
+    # st.write('exemple de spectrogramme anormal : ' + spectro_anormal)
+    # st.image(spectro_anormal)
+    st.markdown("""
+Nous pouvons remarquer que les sons normaux peuvent être totalement différents pour différents types de machines. Cette constatation préconise que nous allons devoir à priori utiliser une approche par machine. Si nous utilisons un modèle global, l'information du type de machine devrait lui être passée en entrée.
+            """)
+    st.image('images/spectros_examples.png')
+    
 
 # démo 1 fichier cnn 1
 if choix ==options[2]:
@@ -79,16 +90,15 @@ if choix ==options[2]:
     image_file = st.file_uploader("",type=['png'])
     if image_file is not None:
         file_details = {"Filename":image_file.name,"FileType":image_file.type,"FileSize":image_file.size}
-        # st.write(file_details)
+        # st.write(image_file)
         img = load_image(image_file)
         st.image(img)
         if st.button("Prediction du spectrogramme"):
-            machine_folder = 'slider' # en dur : slider
+            machine_folder = 'slider' # en dur : slider !!!!
             image_size = (333, 216)
-            png_tests_folder = '../_data_png_cnn1/' + machine_folder + '/png_test/' # en dur 
-            # model_folder = '../_classifiers_cnn1/cnn_' + machine_folder + '.h5'
-            model_folder = '../_classifiers_cnn1/' + machine_folder + '_cnn.h5'
-            st.write('nameFilePngTotest:', png_tests_folder + image_file.name)
+            png_tests_folder = '../_data_png_cnn1/' + machine_folder + '/png_test/' # en dur : path !!!
+            model_folder = '../_classifiers_cnn1/' + machine_folder + '_cnn.h5' # en dur : path !!!
+            st.write('nameFilePngTotest:', png_tests_folder + image_file.name, '...')
             model = load_model(model_folder)
             test_image = image.load_img(png_tests_folder + image_file.name, target_size = image_size) 
             img_array = image.img_to_array(test_image)
@@ -136,4 +146,15 @@ if choix ==options[4]:
     ****** fan: accuracy:  0.93 (183 fichiers)
     ****** ToyConveyor: accuracy:  0.50 (197 fichiers)\n
     """)
+    st.write(""" Les résultats sont tout de même satisfaisants pour la plupart des machines""")
+    st.write(' ')
+    st.write(""" Par contre, cette méthode est de l'apprentissage supervisé ; elle ne correspond pas à une solution idéale qui aurait été de détecter des sons anormaux inconnus avec seuls des échantillons de sons normaux fournis comme données d'entraînement.""")
     
+#     st.markdown("""Une amélioration simple serait d'avoir un seuil variable en fonction des machines :
+# empiriquement on peut se baser sur 0.9 pour slider, 0.2 pour fan...
+# """)
+    # st.markdown("""  """)
+    # st.markdown("""  """)
+    st.markdown("""
+    Nous tenons à remercier Jérémy qui nous a qui nous a encouragé et guidé tout au long du projet ainsi que l'équipe de Datascientest pour son expertise. """)
+
